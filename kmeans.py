@@ -25,7 +25,7 @@ sqlContext = SQLContext(spark)
 tick = time.time()
 
 # Write dataset to spark dataframe
-path = "gs://se513/newyorktlc2016/nytlc_000000000*.csv"
+path = "gs://se513/newyorktlc2016/nytlc_000000000000.csv"
 data = spark.read.format("csv").option("header", "true").load(path)
 
 # Drop null values, select columns, and convert to float
@@ -64,6 +64,9 @@ centers = model.clusterCenters()
 print("Cluster Centers: ")
 for center in centers:
     print(center)
+
+summary = model.summary
+print("Cluster Sizes: ",summary.clusterSizes)
 
 tock = time.time() - tick
 print("Total Execution Time: ",tock)
